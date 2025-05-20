@@ -7,14 +7,14 @@ $actividades = $ActividadController->getAll();
 ?>
 
 <div class="Ejercicios">
-    <h2>Lista de Actividades</h2>
+    <h2 class="text-azul">Lista de Actividades</h2>
 
-    <table>
+    <table class="table table-striped">
         <tr>
-            <th>Actividad</th>
-            <th>Nivel</th>
-            <th>Descripción</th>
-            <th>Tiempo de ejecución</th>
+            <th class="bg-verde">Actividad</th>
+            <th class="bg-verde">Nivel</th>
+            <th class="bg-verde">Descripción</th>
+            <th class="bg-verde">Tiempo de ejecución</th>
         </tr>
         <?php foreach ($actividades as $actividad): ?>
             <tr>

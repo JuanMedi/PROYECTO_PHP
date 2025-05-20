@@ -19,16 +19,15 @@ class UsuariosController {
     public function crear($data) {
     $this->model->setData($data);
     return $this->model->save();
-}
-
-    public function actualizar($id, $data) {
-    $this->model->setId($id);
-    $this->model->setData($data);
-    return $this->model->update($id); // Ahora sí
-}
+    }
 
 
     public function eliminar($id) {
         return $this->model->delete($id);
     }
+
+    public function obtenerNombreUsuario($email) {
+    return $this->model->obtenerNombrePorEmail($email);
+    }
+
 }

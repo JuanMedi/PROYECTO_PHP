@@ -53,33 +53,49 @@ class UsuariosModel {
     }
 
     public function save() {
-        $sql = "
-            INSERT INTO Usuarios 
-                (nombre, apellido, tipo_documento_id, numero_documento, telefono, email, nombre_usuario, contraseña, rol_id)
-            VALUES 
-                ('{$this->nombre}', '{$this->apellido}', {$this->tipo_documento_id}, '{$this->numero_documento}', 
-                 '{$this->telefono}', '{$this->email}', '{$this->nombre_usuario}', '{$this->contraseña}', {$this->rol_id})
-        ";
-        return $this->db->query($sql);
+        $sql = "INSERT INTO Usuarios 
+            (nombre, apellido, tipo_documento_id, numero_documento, telefono, email, nombre_usuario, contraseña, rol_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $stmt = $this->db->prepare($sql);
+        if (!$stmt) {
+            die("Error en la preparación: " . $this->db->error);
+        }
+
+        $hashed_password = password_hash($this->contraseña, PASSWORD_DEFAULT);
+
+        $stmt->bind_param(
+            "ssisssssi",
+            $this->nombre,
+            $this->apellido,
+            $this->tipo_documento_id,
+            $this->numero_documento,
+            $this->telefono,
+            $this->email,
+            $this->nombre_usuario,
+            $hashed_password,
+            $this->rol_id
+        );
+
+        $result = $stmt->execute();
+        $stmt->close();
+
+        return $result;
     }
 
-    public function update($id) {
-        $id = (int)$id;
-        $sql = "
-            UPDATE Usuarios SET 
-                nombre = '{$this->nombre}', 
-                apellido = '{$this->apellido}', 
-                tipo_documento_id = {$this->tipo_documento_id}, 
-                numero_documento = '{$this->numero_documento}',
-                telefono = '{$this->telefono}',
-                email = '{$this->email}',
-                nombre_usuario = '{$this->nombre_usuario}',
-                contraseña = '{$this->contraseña}',
-                rol_id = {$this->rol_id}
-            WHERE id = $id
-        ";
-        return $this->db->query($sql);
+    public function obtenerNombrePorEmail($email) {
+    $sql = "SELECT nombre_usuario FROM Usuarios WHERE email = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->bind_result($nombre);
+    if ($stmt->fetch()) {
+        return $nombre;
+    } else {
+        return null;
     }
+}
+
 
     public function delete($id) {
         $id = (int)$id;

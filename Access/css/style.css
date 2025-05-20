@@ -1,5 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap'); /* Importa la fuente Lora desde Google Fonts */
 
+
+:root {
+    --verde: #94c0c0;
+    --azul: #007bff;
+}
+
+td,th {
+  vertical-align: middle;
+}
+
+
+.bg-verde {
+    background-color: var(--verde) !important; /* !important para asegurar que este estilo tenga prioridad */
+}
+
+.text-verde {
+    color: var(--verde);
+}
+
+.bg-azul {
+    background-color: var(--azul);
+}
+
+.text-azul {
+    color: var(--azul);
+}
+
 html, body {
     height: 100%; /* Establece la altura completa para html y body */
     margin: 0; /* Elimina el margen por defecto */
@@ -53,7 +80,7 @@ body {
     font-family: 'Lora', serif; /* Aplica la fuente Lora al cuerpo */
     background-color: #ffffff; /* Color de fondo oscuro */
     margin: 0; /* Elimina el margen */
-    padding: 10px; /* Relleno interno */
+    /* padding: 10px; */ /* Relleno interno */
     color: #0B0F1A; /* Color de texto blanco */
     text-align: center; /* Centra el texto */
 }
@@ -124,31 +151,31 @@ a:hover {
 .Usuario a:hover {
     color: #a5daa5; /* Cambio al pasar el mouse */
 }
-nav ul {
-    font-family: 'Lora', serif; /* Fuente Lora */
-    list-style: none; /* Elimina viñetas */
-    padding: 0; /* Sin relleno */
-    margin-left: 10%; /* Margen izquierdo */
-    margin-right: 10%; /* Margen derecho */
-    background-color: #110f6b; /* Fondo azul oscuro */
-    display: flex; /* Flexbox para organizar */
-    justify-content: space-between; /* Espaciado entre elementos */
-    align-items: center; /* Alineación vertical */
+/* nav ul {
+    font-family: 'Lora', serif; 
+    list-style: none; 
+    padding: 0; 
+    margin-left: 10%; 
+    margin-right: 10%; 
+    background-color: #110f6b; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
 }
 nav ul img {
-    max-width: 7.5%; /* Tamaño máximo relativo */
-    height: auto; /* Altura automática */
-    margin-right: 15px; /* Margen derecho */
+    max-width: 7.5%; 
+    height: auto; 
+    margin-right: 15px; 
 }
 nav ul li {
-    margin: 0 15px; /* Margen horizontal */
+    margin: 0 15px; 
 }
 nav ul li a {
-    color: #ffffff; /* Enlaces blancos */
-    text-decoration: none; /* Sin subrayado */
-    padding: 10px; /* Relleno */
-    font-size: 100px; /* Tamaño exageradamente grande (posible error) */
-}
+    color: #ffffff; 
+    text-decoration: none; 
+    padding: 10px; 
+    font-size: 100px; 
+} */
 .logo {
     text-align: center; /* Centrado */
     margin: 20px 0; /* Márgenes verticales */
@@ -162,7 +189,7 @@ nav ul li a {
 }
 .container {
     width: 100%; /* Ancho completo */
-    padding: 20px; /* Relleno */
+    /* padding: 20px; */ /* Relleno */
     box-sizing: border-box; /* Incluye padding en el ancho total */
     text-align: center; /* Centrado */
 }
@@ -210,29 +237,29 @@ footer {
     margin-top: 1rem; /* Margen superior */
     border-radius: 8px; /* Bordes redondeados */
 }
-form {
-    display: flex; /* Flexbox vertical */
-    flex-direction: column; /* Dirección columna */
-    margin: 20px auto; /* Centrando el Contactenos */
-    max-width: 400px; /* Ancho máximo */
+/* form {
+    display: flex; 
+    flex-direction: column; 
+    margin: 20px auto; 
+    max-width: 400px; 
 }
 form input {
-    margin-bottom: 10px; /* Separación entre campos */
-    padding: 10px; /* Relleno interno */
-    border: 1px solid #110f6b; /* Borde azul oscuro */
-    border-radius: 5px; /* Bordes redondeados */
+    margin-bottom: 10px; 
+    padding: 10px; 
+    border: 1px solid #110f6b;
+    border-radius: 5px;
 }
 form button {
-    padding: 10px; /* Relleno */
-    background: #007bff; /* Fondo azul */
-    color: #0B0F1A; /* Texto oscuro */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cambia el cursor al pasar encima */
+    padding: 10px; 
+    background: #007bff; 
+    color: #0B0F1A; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 form button:hover {
-    background: #110f6b; /* Color al pasar el mouse */
-}
+    background: #110f6b;
+} */
 .Contenido-login, .Contenido-signup{
     min-height: 100vh; /* Altura mínima igual al viewport */
     display: flex; /* Flexbox */
