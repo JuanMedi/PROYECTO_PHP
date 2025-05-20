@@ -1,7 +1,9 @@
 <?php
-require_once 'ActividadesModel.php'; // Asegúrate de que la ruta es correcta
-$actividadModel = new ActividadesModel();
-$actividades = $actividadModel->getAll(); // Obtener datos reales desde la base
+require_once __DIR__ . '/../Controllers/ActividadesController.php'; // Asegúrate de usar la ruta correcta
+// Instanciar el controlador
+$ActividadController = new ActividadesController();
+// Obtener niveles desde el modelo
+$actividades = $ActividadController->getAll();
 ?>
 
 <div class="Ejercicios">

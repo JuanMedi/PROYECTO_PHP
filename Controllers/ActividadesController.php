@@ -1,85 +1,52 @@
 <?php
-require_once 'Actividades.php';
+require_once __DIR__ . '/../Models/ActividadesModel.php';
+require_once __DIR__ . '/../Models/NivelActividadesModel.php'; // Asegúrate del nombre correcto
 
-header('Content-Type: application/json');
+class ActividadesController {
+    private $actividadModel;
+    private $nivelModel;
 
-$actividad = new ActividadesModel();
-$method = $_SERVER['REQUEST_METHOD'];
+    public function __construct() {
+        $this->actividadModel = new ActividadesModel();
+        $this->nivelModel = new NivelActividadesModel(); // Corrige el nombre si era incorrecto
+    }
 
-// Función auxiliar para obtener input JSON o form-data
-function getInputData() {
-    $input = json_decode(file_get_contents("php://input"), true);
-    return $input ?: $_POST;
+    // Obtener todas las actividades
+    public function getAll() {
+        return $this->actividadModel->getAll();
+    }
+
+    // Obtener una actividad por ID
+    public function getById($id) {
+        return $this->actividadModel->getById($id);
+    }
+
+    // Crear una nueva actividad
+    public function crear($data) {
+        $this->actividadModel->setNombre($data['nombre']);
+        $this->actividadModel->setNivelId($data['nivel_id']);
+        $this->actividadModel->setDescripcion($data['descripcion']);
+        $this->actividadModel->setTiempoEstimado($data['tiempo_estimado']);
+        return $this->actividadModel->save();
+    }
+
+    // Actualizar una actividad
+    public function actualizar($id, $data) {
+        $this->actividadModel->setId($id);
+        $this->actividadModel->setNombre($data['nombre']);
+        $this->actividadModel->setNivelId($data['nivel_id']);
+        $this->actividadModel->setDescripcion($data['descripcion']);
+        $this->actividadModel->setTiempoEstimado($data['tiempo_estimado']);
+        return $this->actividadModel->update();
+    }
+
+    // Eliminar una actividad
+    public function eliminar($id) {
+        return $this->actividadModel->delete($id);
+    }
+
+    // Obtener todos los niveles para uso en formularios u otros
+    public function getNiveles() {
+        return $this->nivelModel->getAll();
+    }
 }
-
-// Enrutamiento simple según método
-switch ($method) {
-    case 'GET':
-        if (isset($_GET['id'])) {
-            $data = $actividad->getById($_GET['id']);
-            echo json_encode($data ?: ['error' => 'Actividad no encontrada']);
-        } else {
-            echo json_encode($actividad->getAll());
-        }
-        break;
-
-    case 'POST':
-        $data = getInputData();
-        if (
-            !empty($data['nombre']) &&
-            !empty($data['nivel_id']) &&
-            !empty($data['descripcion']) &&
-            !empty($data['tiempo_estimado'])
-        ) {
-            $success = $actividad->create(
-                $data['nombre'],
-                $data['nivel_id'],
-                $data['descripcion'],
-                $data['tiempo_estimado']
-            );
-            echo json_encode(['success' => $success]);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'Faltan campos requeridos']);
-        }
-        break;
-
-    case 'PUT':
-        $data = getInputData();
-        if (
-            isset($_GET['id']) &&
-            !empty($data['nombre']) &&
-            !empty($data['nivel_id']) &&
-            !empty($data['descripcion']) &&
-            !empty($data['tiempo_estimado'])
-        ) {
-            $success = $actividad->update(
-                $_GET['id'],
-                $data['nombre'],
-                $data['nivel_id'],
-                $data['descripcion'],
-                $data['tiempo_estimado']
-            );
-            echo json_encode(['success' => $success]);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'Datos incompletos para actualización']);
-        }
-        break;
-
-    case 'DELETE':
-        if (isset($_GET['id'])) {
-            $success = $actividad->delete($_GET['id']);
-            echo json_encode(['success' => $success]);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'Falta el ID para eliminar']);
-        }
-        break;
-
-    default:
-        http_response_code(405);
-        echo json_encode(['error' => 'Método HTTP no permitido']);
-        break;
-}
-?>

@@ -1,29 +1,13 @@
 <?php
 class Database {
-    private static $host = 'localhost';
-    private static $dbName = 'dbAurora';
-    private static $username = 'root';
-    private static $password = '';
-    private static $conn;
-
     public static function connect() {
-        if (self::$conn === null) {
-            try {
-                self::$conn = new PDO(
-                    "mysql:host=" . self::$host . ";dbname=" . self::$dbName . ";charset=utf8mb4",
-                    self::$username,
-                    self::$password
-                );
-                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $e) {
-                die("Conexión fallida: " . $e->getMessage());
-            }
-        }
-        return self::$conn;
-    }
+        $conexion = new mysqli("localhost", "root", "", "dbaurora");
 
-    public static function disconnect() {
-        self::$conn = null;
+        if ($conexion->connect_error) {
+            die("❌ Error de conexión: " . $conexion->connect_error);
+        }
+
+        $conexion->set_charset("utf8"); // Equivalente más claro
+        return $conexion;
     }
 }
-?>

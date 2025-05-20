@@ -1,49 +1,100 @@
 <?php
-require_once 'db.php';
+require_once __DIR__ . '/../config/db.php';
 
 class ActividadesModel {
-    private $conn;
+    private $id;
+    private $nombre;
+    private $nivel_id;
+    private $descripcion;
+    private $tiempo_estimado;
+    private $db;
 
     public function __construct() {
-        $this->conn = Database::connect();
+        $this->db = Database::connect();
     }
 
+    // Getters opcionales
+    public function getId() {
+        return $this->id;
+    }
+
+    // Setters
+    public function setId($id) {
+        $this->id = (int)$id;
+    }
+
+    public function setNombre($nombre) {
+        $this->nombre = $this->db->real_escape_string($nombre);
+    }
+
+    public function setNivelId($nivel_id) {
+        $this->nivel_id = (int)$nivel_id;
+    }
+
+    public function setDescripcion($descripcion) {
+        $this->descripcion = $this->db->real_escape_string($descripcion);
+    }
+
+    public function setTiempoEstimado($tiempo) {
+        $this->tiempo_estimado = (float)$tiempo;
+    }
+
+    // Obtener todas las actividades con el nombre del nivel
     public function getAll() {
-        $stmt = $this->conn->prepare("
-            SELECT A.*, N.nombre AS nivel_nombre 
-            FROM Actividades A 
-            LEFT JOIN Nivel_Actividades N ON A.nivel_id = N.id
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql = "
+            SELECT a.*, n.nombre AS nivel_nombre 
+            FROM Actividades a 
+            LEFT JOIN Nivel_Actividades n ON a.nivel_id = n.id
+        ";
+        $result = $this->db->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getById($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM Actividades WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function create($nombre, $nivel_id, $descripcion, $tiempo_estimado) {
-        $stmt = $this->conn->prepare("
+    // Guardar nueva actividad
+    public function save() {
+        $sql = "
             INSERT INTO Actividades (nombre, nivel_id, descripcion, tiempo_estimado)
-            VALUES (?, ?, ?, ?)
-        ");
-        return $stmt->execute([$nombre, $nivel_id, $descripcion, $tiempo_estimado]);
+            VALUES (
+                '{$this->nombre}', 
+                {$this->nivel_id}, 
+                '{$this->descripcion}', 
+                {$this->tiempo_estimado}
+            )
+        ";
+        return $this->db->query($sql);
     }
 
-    public function update($id, $nombre, $nivel_id, $descripcion, $tiempo_estimado) {
-        $stmt = $this->conn->prepare("
+    // Consultar por ID
+    public function getById($id) {
+        $id = (int)$id;
+        $sql = "
+            SELECT a.*, n.nombre AS nivel_nombre 
+            FROM Actividades a 
+            LEFT JOIN Nivel_Actividades n ON a.nivel_id = n.id
+            WHERE a.id = $id LIMIT 1
+        ";
+        $result = $this->db->query($sql);
+        return $result->fetch_assoc();
+    }
+
+    // Actualizar actividad
+    public function update() {
+        $sql = "
             UPDATE Actividades 
-            SET nombre = ?, nivel_id = ?, descripcion = ?, tiempo_estimado = ?
-            WHERE id = ?
-        ");
-        return $stmt->execute([$nombre, $nivel_id, $descripcion, $tiempo_estimado, $id]);
+            SET 
+                nombre = '{$this->nombre}', 
+                nivel_id = {$this->nivel_id}, 
+                descripcion = '{$this->descripcion}', 
+                tiempo_estimado = {$this->tiempo_estimado}
+            WHERE id = {$this->id}
+        ";
+        return $this->db->query($sql);
     }
 
+    // Borrar actividad
     public function delete($id) {
-        $stmt = $this->conn->prepare("DELETE FROM Actividades WHERE id = ?");
-        return $stmt->execute([$id]);
+        $id = (int)$id;
+        $sql = "DELETE FROM Actividades WHERE id = $id";
+        return $this->db->query($sql);
     }
 }
-?>
