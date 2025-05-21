@@ -116,7 +116,7 @@ class UsuariosModel{
     } else {
         return null;
     }
-}
+    }     
 
 
     public function delete($id) {
@@ -124,4 +124,26 @@ class UsuariosModel{
         $sql = "DELETE FROM Usuarios WHERE id = $id";
         return $this->db->query($sql);
     }
+
+    public function esAdmin($id_usuario) {
+    $query = "SELECT rol_id FROM Usuarios WHERE id = ?";
+    $stmt = $this->db->prepare($query);
+
+    if (!$stmt) {
+        return false; // Error en la preparación de la consulta
+    }
+
+    $stmt->bind_param("i", $id_usuario);
+    $stmt->execute();
+    $stmt->bind_result($rol_id);
+
+    if ($stmt->fetch()) {
+        $stmt->close();
+        return $rol_id === 1; // Devuelve true si el rol es admin (ID 1)
+    } else {
+        $stmt->close();
+        return false; // Usuario no encontrado
+    }
+    }
+
 }

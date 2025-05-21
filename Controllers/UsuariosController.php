@@ -32,6 +32,10 @@ class UsuariosController {
 
     public function login($email, $contraseña) {
     return $this->model->userExists($email, $contraseña);
+    }
+
+    public function esAdmin($id) {
+        return $this->model->esAdmin($id);
+    }
 }
 
-}

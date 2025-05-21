@@ -5,13 +5,13 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'main'; // Por defecto carga la p
 // Incluir el archivo correspondiente
 switch ($page) {
     case 'form':
-        include 'views/form.php';
+        include 'views/users/form.php';
         break;
     case 'actividades':
-        include 'views/actividades.php';
+        include 'views/users/actividades.php';
         break;
     default:
-        include 'views/main.php';
+        include 'views/users/main.php';
         break;
 }
 ?>

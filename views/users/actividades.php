@@ -1,8 +1,6 @@
 <?php
-require_once __DIR__ . '/../Controllers/ActividadesController.php'; // Asegúrate de usar la ruta correcta
-// Instanciar el controlador
+require_once __DIR__ . '/../../Controllers/ActividadesController.php'; // ✅ dos niveles hacia arriba desde views/users
 $ActividadController = new ActividadesController();
-// Obtener niveles desde el modelo
 $actividades = $ActividadController->getAll();
 ?>
 

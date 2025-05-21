@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['email'] = $usuario['email'];
             $_SESSION['nombre_usuario'] = $usuario['nombre_usuario'];
+            $_SESSION['rol_id'] = $usuario['rol_id'];
             header("Location: ../layout.php?page=main");
             exit;
         } else {

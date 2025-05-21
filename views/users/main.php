@@ -1,13 +1,11 @@
 <?php
-require_once 'config/db.php';
-require_once 'Models/UsuariosModel.php';
 require_once 'Controllers/UsuariosController.php';
+require_once 'Controllers/LoginController.php';
 
-$db = Database::connect();
-$modelo = new UsuariosModel($db);
-$controlador = new UsuariosController($modelo);
+$controlador = new UsuariosController();
 
-$email = $_SESSION['user_email'] ?? null;
+$email = $_SESSION['email'] ?? null;
+$rol = $_SESSION['rol_id'] ?? null;
 $nombre = 'Invitado';
 
 if ($email) {
@@ -85,5 +83,8 @@ if ($email) {
             </div>
         </div>
         
+    </div>
+    <div class = "link-admin", style = "position:absolute; right:0" >
+        <a href="layoutadmin.php/admin?page=adminusuarios">Ingresar funcionalidades Admin</a>
     </div>
 </div>

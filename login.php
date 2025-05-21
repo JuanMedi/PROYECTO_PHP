@@ -21,7 +21,7 @@ unset($_SESSION['error']);
             <button type="submit">Iniciar sesión</button>
 
             <?php if ($error): ?>
-                <p style="color:red"><?= htmlspecialchars($error) ?></p>
+                <div class = "alert alert-danger" role="alert"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
         </form>
     </div>

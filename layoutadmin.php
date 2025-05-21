@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" href="Access/css/style.css"> <!-- Estilo CSS -->
 </head>
 <body>
-    <?php include 'Layout/users/header.php'; ?> <!-- Incluye el encabezado -->
+    <?php include 'Layout/admin/adminheader.php'; ?> <!-- Incluye el encabezado -->
     
-    <?php include 'Layout/users/container.php'; ?> <!-- Incluye el contenido dinámico -->
+    <?php include 'Layout/admin/admincontainer.php'; ?> <!-- Incluye el contenido dinámico -->
     
     <?php include 'Layout/users/footer.php'; ?> <!-- Incluye el pie de página -->
 

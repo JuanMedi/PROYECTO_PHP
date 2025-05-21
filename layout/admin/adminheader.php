@@ -11,14 +11,23 @@
 
             <!-- Enlaces principales -->
             <div class="nav-links">
-                <a href="layout.php?page=main">Usuarios</a>
-                <a href="layout.php?page=actividades">Actividades</a>
+                <a href="layout.php?page=adminactividades">Actividades</a>
+                <a href="layout.php?page=adminroles">Roles</a>
+                <a href="layout.php?page=adminnivelactividades">Niveles</a>
+                <a href="layout.php?page=adminroles">Roles</a>
+                <a href="layout.php?page=adminusuarios">Usuarios</a>
+            </div>
+
+            <div>
+                <a href="../layout.php?page=main">Volver a interfaz de usuarios</a>
             </div>
 
             <!-- Cerrar sesión -->
             <div class="nav-logout">
-                <a href="logout.php">Cerrar Sesión</a>
+                <a href="../logout.php">Cerrar Sesión</a>
             </div>
+
+            
         </div>
     </nav>
 </header>
