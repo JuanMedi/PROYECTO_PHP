@@ -13,7 +13,7 @@ switch ($page) {
     case 'adminactividades':
         include 'views/admin/adminactividades.php';
         break;
-    case 'nivel':
+    case 'adminnivelactividades':
         include 'views/admin/adminnivelactividades.php';
         break;
     default:

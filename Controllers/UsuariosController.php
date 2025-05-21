@@ -21,6 +21,11 @@ class UsuariosController {
     return $this->model->save();
     }
 
+    public function actualizar($id, $data) {
+        $this->model->setId($id);
+        $this->model->setData($data);
+        return $this->model->save();
+    }
 
     public function eliminar($id) {
         return $this->model->delete($id);

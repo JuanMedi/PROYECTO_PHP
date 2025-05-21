@@ -16,9 +16,22 @@ class MensajesContactosController {
         return $this->model->getById($id);
     }
 
-    public function crear($data) {
-        $this->model->setIdUsuario($data['id_usuario']);
-        return $this->model->save();
+    public function createMensaje() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
+            $id_usuario = (int)$_POST['id'];
+
+            $modelo = new MensajesContactosModel();
+            $modelo->setIdUsuario($id_usuario);
+            $exito = $modelo->create();
+
+            if ($exito) {
+                echo "<p>Mensaje registrado con éxito.</p>";
+            } else {
+                echo "<p>Error al registrar el mensaje.</p>";
+            }
+        } else {
+            echo "<p>Faltan datos para registrar el mensaje.</p>";
+        }
     }
 
     public function eliminar($id) {

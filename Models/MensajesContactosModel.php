@@ -37,6 +37,23 @@ class MensajesContactosModel {
         ";
         return $this->db->query($sql);
     }
+    public function create(){
+        $sql = "
+            INSERT INTO Mensaje_Contactos (id_usuario, fecha)
+            VALUES ({$this->id_usuario}, NOW())
+        ";
+        return $this->db->query($sql);
+    }
+
+    public function update($id) {
+        $id = (int)$id;
+        $sql = "
+            UPDATE Mensaje_Contactos 
+            SET id_usuario = {$this->id_usuario}
+            WHERE id = $id
+        ";
+        return $this->db->query($sql);
+    }	
 
     public function delete($id) {
         $id = (int)$id;

@@ -12,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['email'] = $email; // <- Guardar el usuario en la sesión
         header("Location: layout.php?page=main"); // Redirigir
         exit;
-    } else {
-        echo "Por favor, ingresa un email.";
-    }
+    };
 }
 ?>

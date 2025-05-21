@@ -7,13 +7,18 @@ $controlador = new UsuariosController();
 $email = $_SESSION['email'] ?? null;
 $rol = $_SESSION['rol_id'] ?? null;
 $nombre = 'Invitado';
+$enlace =  "layout.php/users?page=main";
+
+// if ($rol === 1) {
+//     $enlace = "layoutadmin.php/admin?page=adminusuarios";
+// }
 
 if ($email) {
     $nombre = $controlador->obtenerNombreUsuario($email) ?? 'Invitado';
 }
 ?>
 
-<div class="Bienvenida">
+<div class="Bienvenida p-3">
     <h1>¡Bienvenido a la Página Principal!</h1>
     <h2>¡Hola, <?= htmlspecialchars($nombre) ?>!</h2>
 </div>
@@ -84,7 +89,7 @@ if ($email) {
         </div>
         
     </div>
-    <div class = "link-admin", style = "position:absolute; right:0" >
-        <a href="layoutadmin.php/admin?page=adminusuarios">Ingresar funcionalidades Admin</a>
+    <div class="link-admin" style="position:absolute; right:0">
+        <a href="<?= $rol === 1 ? 'layoutadmin.php?page=adminusuarios' : '#' ?>">Ingresar funcionalidades Admin</a>
     </div>
 </div>

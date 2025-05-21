@@ -10,12 +10,9 @@ class NivelActividadesController
         $this->model = new NivelActividadesModel();
     }
 
-    public function listarNiveles()
+    public function getAll()
     {
-        $niveles = $this->model->getAll();
-
-        // Validar que la consulta no falló
-        return is_array($niveles) ? $niveles : [];
+        return $this->model->getAll();
     }
 
     // Guardar un nuevo nivel

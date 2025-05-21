@@ -36,7 +36,7 @@ header {
     font-family: 'Lora', serif; /* Aplica la fuente Lora al encabezado */
     background: rgb(188, 214, 214); /* Color de fondo del encabezado (puede sobrescribir la imagen si no se carga) */
     color: #007bff; /* Color del texto en el encabezado */
-    padding: 10px 0; /* Relleno vertical de 10px */
+    /* padding: 10px 0; */ /* Relleno vertical de 10px */
     text-align: center; /* Centra el texto dentro del encabezado */
 }
 .navbar {

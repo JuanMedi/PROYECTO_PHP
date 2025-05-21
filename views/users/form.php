@@ -1,5 +1,5 @@
 <div class = 'Contactenos'>
-    <h1 class = "text-azul">Contactenos</h1>
+    <h1 class = "text-azul">Contáctanos</h1>
     <p class = "text-azul">
         Si tienes alguna pregunta o inquietud, no dudes en ponerte en contacto con nosotros. </br>
         Estamos aquí para ayudarte y brindarte la información que necesites.
