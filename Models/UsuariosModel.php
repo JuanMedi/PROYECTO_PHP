@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/db.php';
 
-class UsuariosModel {
+class UsuariosModel{
     private $db;
     private $id;
     private $nombre;
@@ -34,7 +34,29 @@ class UsuariosModel {
         $this->rol_id = (int)$data['rol_id'];
     }
 
-    
+    public function userExists($email, $contraseña) {
+    $sql = "SELECT * FROM Usuarios WHERE email = ?";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($user = $result->fetch_assoc()) {
+        // Verifica la contraseña con hash
+        if (password_verify($contraseña, $user['contraseña'])) {
+            return $user; // Devuelve datos del usuario si existe
+        }
+    }
+    return false;
+}
+
+
+    public function setemail($email) {
+        $query = $this->db->prepare("SELECT * FROM Usuarios WHERE email = :email");
+        $query->execute([':email' => $email]);
+
+    }
+
 
     public function getAll() {
         $sql = "

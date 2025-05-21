@@ -98,11 +98,14 @@ try {
         ('Avanzado');
     ");
 
+    $hash1 = password_hash('123456', PASSWORD_DEFAULT);
+    $hash2 = password_hash('234567', PASSWORD_DEFAULT);
+
     // Insertar datos en Usuarios
     $pdo->exec("
         INSERT INTO Usuarios (nombre, apellido, tipo_documento_id, numero_documento, telefono, email, nombre_usuario, contraseña, rol_id) VALUES 
-        ('Juan', 'Medina', 1, '1033787343', '3053738386', 'joanmadino@gmail.com', 'JuanAdmin', '123456', 1),
-        ('Pedro', 'Pérez', 2, '1033787344', '3206614156', 'pedro@gmail.com', 'PedroUser', '123456', 2);
+        ('Juan', 'Medina', 1, '1033787343', '3053738386', 'joanmadino@gmail.com', 'JuanAdmin', '$hash1', 1),
+        ('Pedro', 'Pérez', 2, '1033787344', '3206614156', 'pedro@gmail.com', 'PedroUser', '$hash2', 2);
     ");
 
     // Insertar datos en Actividades

@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+session_start();
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+?>
+
+"<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -9,10 +15,14 @@
 <body class = 'Contenido-login'>
     <div id = 'login-container'>
         <h1 id = 'text-login'>Iniciar Sesión</h1>
-        <form class = 'login-form' method="POST" action="index.php">
-            <input type="text" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Entrar</button>
+        <form action="controllers/LoginController.php" method="POST">
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="contraseña" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+
+            <?php if ($error): ?>
+                <p style="color:red"><?= htmlspecialchars($error) ?></p>
+            <?php endif; ?>
         </form>
     </div>
     <a href='singup.php'>Registrarse</a>

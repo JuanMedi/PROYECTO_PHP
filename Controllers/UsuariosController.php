@@ -30,4 +30,8 @@ class UsuariosController {
     return $this->model->obtenerNombrePorEmail($email);
     }
 
+    public function login($email, $contraseña) {
+    return $this->model->userExists($email, $contraseña);
+}
+
 }
