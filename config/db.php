@@ -1,13 +1,17 @@
 <?php
 class Database {
     public static function connect() {
-        $conexion = new mysqli("localhost", "root", "", "dbaurora");
+        $host = 'localhost';
+        $user = 'root';
+        $pass = ''; // o tu contraseña
+        $db = 'dbaurora';
+
+        $conexion = new mysqli($host, $user, $pass, $db);
 
         if ($conexion->connect_error) {
-            die("❌ Error de conexión: " . $conexion->connect_error);
+            die("Conexión fallida: " . $conexion->connect_error);
         }
 
-        $conexion->set_charset("utf8"); // Equivalente más claro
         return $conexion;
     }
 }

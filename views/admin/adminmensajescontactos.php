@@ -1,33 +1,43 @@
 <?php
-require_once __DIR__ . '/../../Controllers/ActividadesController.php'; // ✅ dos niveles hacia arriba desde views/users
-$ActividadController = new ActividadesController();
-$actividades = $ActividadController->getAll();
+require_once __DIR__ . '/../../Controllers/MensajesContactosController.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$controller = new MensajesContactosController();
+$mensajes = $controller->getAll();
 ?>
 
-<div class="Ejercicios">
-    <h2 class="text-azul">Lista de Actividades</h2>
+<div class="Niveles">
+    <div class="d-flex align-items-center" style="justify-content: space-between;">
+        <h2 class="text-azul">Lista de Mensajes</h2>
+    </div>
 
-    <table class="table table-striped">
-        <tr>
-            <th class="bg-verde">Actividad</th>
-            <th class="bg-verde">Nivel</th>
-            <th class="bg-verde">Descripción</th>
-            <th class="bg-verde">Tiempo de ejecución</th>
-            <th class ="bg-verde">Acciones</th>
-        </tr>
-        <?php foreach ($actividades as $actividad): ?>
+    <div class="table-responsive">
+        <table class="table table-striped">
             <tr>
-                <td><?= htmlspecialchars($actividad['nombre']) ?></td>
-                <td><?= htmlspecialchars($actividad['nivel_nombre']) ?></td>
-                <td><?= htmlspecialchars($actividad['descripcion']) ?></td>
-                <td><?= htmlspecialchars($actividad['tiempo_estimado']) ?> minutos</td>
-                <td>
-                    <a href="editActividad.php?id=<?= $actividad['id'] ?>" class="btn btn-warning">Editar</a>
-                    <a href="deleteActividad.php?id=<?= $actividad['id'] ?>" class="btn btn-danger">Eliminar</a>
-                </td>
+                <th class="bg-verde">ID</th>
+                <th class="bg-verde">Usuario</th>
+                <th class="bg-verde">Nombre de usuario</th>
+                <th class="bg-verde">Email</th>
+                <th class="bg-verde">Fecha</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-   
+            <?php foreach ($mensajes as $mensaje): ?>
+                <tr>
+                    <td><?= htmlspecialchars($mensaje['id']) ?></td>
+                    <td><?= htmlspecialchars($mensaje['id_usuario']) ?></td>
+                    <td><?= htmlspecialchars($mensaje['nombre_usuario']) ?></td>
+                    <td><?= htmlspecialchars($mensaje['email']) ?></td>
+                    <td><?= htmlspecialchars($mensaje['fecha']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <?php if (isset($_GET['success'])): ?>
+        <p style="color:green;">Mensaje registrado con éxito.</p>
+    <?php endif; ?>
+
+    <a href="layout.php?page=main">Volver a interfaz de usuarios</a>
 </div>
-<a href="layout.php?page=main">Volver a interfaz de usuarios</a>

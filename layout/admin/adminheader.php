@@ -1,6 +1,4 @@
 <header>
-   
-
 
     <div class="p-2">
         <h1 class="m-0">AURORA</h1>
@@ -31,6 +29,9 @@
                     </li>
                     <li class= "nav-item">
                         <a href="layoutadmin.php?page=adminusuarios" class="nav-link">Usuarios</a>
+                    </li>
+                    <li class= "nav-item">
+                        <a href="layoutadmin.php?page=adminmensajescontactos" class="nav-link">Registro de Mensajes</a>
                     </li>
                     <li class= "nav-item">
                         <a href="logout.php" class="nav-link">Cerrar Sesión</a>

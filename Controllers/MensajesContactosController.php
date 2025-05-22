@@ -1,40 +1,57 @@
 <?php
 require_once __DIR__ . '/../Models/MensajesContactosModel.php';
 
-class MensajesContactosController {
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+class MensajesContactosController
+{
     private $model;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->model = new MensajesContactosModel();
     }
 
-    public function getAll() {
-        return $this->model->getAll();
+    public function getAll()
+    {
+        return $this->model->getAllConUsuarios();
     }
 
-    public function getById($id) {
+    public function getById($id)
+    {
         return $this->model->getById($id);
     }
 
-    public function createMensaje() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-            $id_usuario = (int)$_POST['id'];
+    public function createMensaje()
+    {
+        if (!isset($_SESSION['user_id'])) {
+            die('Acceso no autorizado. Usuario no logueado.');
+        }
 
-            $modelo = new MensajesContactosModel();
-            $modelo->setIdUsuario($id_usuario);
-            $exito = $modelo->create();
+        $id_usuario = $_SESSION['user_id'];
+        $this->model->setIdUsuario($id_usuario);
 
-            if ($exito) {
-                echo "<p>Mensaje registrado con éxito.</p>";
-            } else {
-                echo "<p>Error al registrar el mensaje.</p>";
-            }
+        $success = $this->model->create();
+
+        if ($success) {
+            header('Location: ../Layout.php?page=form');
+            echo "<script>alert('Mensaje creado exitosamente.');</script>";
         } else {
-            echo "<p>Faltan datos para registrar el mensaje.</p>";
+            die('Error al crear mensaje.');
         }
     }
 
-    public function eliminar($id) {
+    public function eliminar($id)
+    {
         return $this->model->delete($id);
     }
 }
+
+// Manejo simple de POST para crear mensaje
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'crearMensaje') {
+    $controller = new MensajesContactosController();
+    $controller->createMensaje();
+}
+

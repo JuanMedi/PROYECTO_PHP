@@ -7,6 +7,9 @@ switch ($page) {
     case 'adminroles':
         include 'views/admin/adminroles.php';
         break;
+    case 'adminmensajescontactos':
+        include 'views/admin/adminmensajescontactos.php';
+        break;
     case 'admintipos':
         include 'views/admin/admintipos.php';
         break;

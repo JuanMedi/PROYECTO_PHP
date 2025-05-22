@@ -13,6 +13,5 @@ if (isset($_GET['id'])) {
     $controller->eliminar($id);
     header('Location: ../../layoutadmin.php?page=adminactividades');
     exit;
-
 }
 ?>
