@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../Models/ActividadesModel.php';
 require_once __DIR__ . '/../Models/NivelActividadesModel.php'; // Asegúrate del nombre correcto
 
-class ActividadesController {
+class ActividadesController{
     private $actividadModel;
     private $nivelModel;
 

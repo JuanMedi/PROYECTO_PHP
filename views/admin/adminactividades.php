@@ -6,8 +6,8 @@ $actividades = $ActividadController->getAll();
 
 <div class= "Actividades">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
-        <h2 class="text-azul">Lista de Actividades</h2>
-        <a href ="Components/Formsview/FormActividades.php" class="btn btn-primary">Crear Actividad</a>
+        <h2 class="text-azul">Lista de Actividades(<?= count($actividades) ?>)</h2>
+        <a href ="/PROYECTO_PHP/layoutadmin.php?page=FormActividades" class="btn btn-primary">Crear Actividad</a>
     </div>
 
     <div class = "table-responsive">
@@ -26,13 +26,14 @@ $actividades = $ActividadController->getAll();
                     <td><?= htmlspecialchars($actividad['descripcion']) ?></td>
                     <td><?= htmlspecialchars($actividad['tiempo_estimado']) ?> minutos</td>
                     <td>
-                        <a href="Components/Formsview/FormActividades.php?id=<?= $actividad['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="/PROYECTO_PHP/layoutadmin.php?page=FormActividades&id=<?= $actividad['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="Components/Delete/deleteActividad.php?id=<?= $actividad['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <a href="layout.php?page=main">Volver a interfaz de usuarios</a>
     </div>
+    <a href="layout.php?page=main">Volver a interfaz de usuarios</a>
+</div>
 
 

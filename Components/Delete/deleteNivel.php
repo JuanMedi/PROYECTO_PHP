@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
 
     // Llamar al método de eliminación
     $controller->eliminar($id);
-    header('Location: ../../layoutadmin.php?page=adminniveles');
+    header('Location: ../../layoutadmin.php?page=adminnivelactividades');
     exit;
 
 }

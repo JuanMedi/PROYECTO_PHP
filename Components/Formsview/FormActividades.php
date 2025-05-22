@@ -31,36 +31,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $niveles = $nivelController->getAll();
 ?>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
-<div class="container form">
-    <div class="form">
-        <form method="POST">
-            <?php if ($editando): ?>
-                <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id']) ?>">
-            <?php endif; ?>
+<div class="container mt-5 mb-5">
+    <div class="card shadow-sm rounded-4">
+        <div class="card-header bg-verde text-white">
+            <h4 class="mb-0"><?= $editando ? 'Editar' : 'Crear' ?> Actividad</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <?php if ($editando): ?>
+                    <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id']) ?>">
+                <?php endif; ?>
 
-            <label>Nombre:</label>
-            <input type="text" name="nombre" value="<?= htmlspecialchars($actividad['nombre']) ?>" required><br>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?= htmlspecialchars($actividad['nombre']) ?>" required>
+                    </div>
 
-            <label>Descripción:</label>
-            <textarea name="descripcion" required><?= htmlspecialchars($actividad['descripcion']) ?></textarea><br>
+                    <div class="col-md-6">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><?= htmlspecialchars($actividad['descripcion']) ?></textarea>
+                    </div>
 
-            <label>Nivel:</label>
-            <select name="nivel_id" required>
-                <option value="">Seleccionar Nivel</option>
-                <?php foreach ($niveles as $nivel): ?>
-                    <option value="<?= $nivel['id'] ?>" <?= $nivel['id'] == $actividad['nivel_id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($nivel['nombre']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select><br>
+                    <div class="col-md-6">
+                        <label for="nivel_id" class="form-label">Nivel:</label>
+                        <select class="form-select" id="nivel_id" name="nivel_id" required>
+                            <option value="">Seleccionar Nivel</option>
+                            <?php foreach ($niveles as $nivel): ?>
+                                <option value="<?= $nivel['id'] ?>" <?= $nivel['id'] == $actividad['nivel_id'] ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($nivel['nombre']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-            <label>Tiempo estimado (minutos):</label>
-            <input type="number" name="tiempo_estimado" value="<?= htmlspecialchars($actividad['tiempo_estimado']) ?>" required><br>
+                    <div class="col-md-6">
+                        <label for="tiempo_estimado" class="form-label">Tiempo estimado (minutos):</label>
+                        <input type="number" class="form-control" id="tiempo_estimado" name="tiempo_estimado" value="<?= htmlspecialchars($actividad['tiempo_estimado']) ?>" required>
+                    </div>
+                </div>
 
-            <button type="submit"><?= $editando ? 'Actualizar' : 'Crear' ?> Actividad</button>
-        </form>
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="/PROYECTO_PHP/layoutadmin.php?page=adminactividades" class="btn btn-outline-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a la lista
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa-solid fa-check"></i> <?= $editando ? 'Actualizar' : 'Crear' ?> Actividad
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-
-    <a href="/PROYECTO_PHP/layoutadmin.php?page=adminactividades">Volver a lista</a>
 </div>
