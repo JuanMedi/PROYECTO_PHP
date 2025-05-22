@@ -114,6 +114,14 @@ class UsuariosModel
         }
     }
 
+    public function update()
+    {
+        $sql = 'UPDATE Usuarios SET nombre=?, apellido=?, tipo_documento_id=?, numero_documento=?, telefono=?, email=?, nombre_usuario=?, rol_id=? WHERE id=?';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('ssissssii', $this->nombre, $this->apellido, $this->tipo_documento_id, $this->numero_documento, $this->telefono, $this->email, $this->nombre_usuario, $this->rol_id, $this->id);
+        return $stmt->execute();
+    }
+
     public function delete($id)
     {
         $id = (int) $id;
@@ -142,5 +150,4 @@ class UsuariosModel
             return false; // Usuario no encontrado
         }
     }
-
 }

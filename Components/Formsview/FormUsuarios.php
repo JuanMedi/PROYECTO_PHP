@@ -1,123 +1,72 @@
 <?php
-// Asumiendo conexión en $db (mysqli)
-require_once 'config/db.php';  // o la ruta correcta
+require_once __DIR__ . '/../../Controllers/UsuariosController.php';
+$controller = new UsuariosController();
 
-$db = Database::connect();  // Esto inicializa $db para usarlo luego
+$editando = false;
+$usuario = [
+    'nombre' => '',
+    'apellido' => '',
+    'tipo_documento_id' => '',
+    'numero_documento' => '',
+    'telefono' => '',
+    'email' => '',
+    'nombre_usuario' => '',
+    'contraseña' => '',
+    'rol_id' => ''
+];
 
-// Ahora sí puedes hacer queries con $db
-$tiposDocumento = $db->query("SELECT id, nombre FROM tipo_documento")->fetch_all(MYSQLI_ASSOC);
-$roles = $db->query("SELECT id, nombre FROM Rol_Usuario")->fetch_all(MYSQLI_ASSOC);
+if (isset($_GET['id'])) {
+    $editando = true;
+    $usuario = $controller->getById($_GET['id']);
+}
 
-
-// Variables para valores por defecto (para edición o formulario vacío)
-$usuario_nombre = $_POST['nombre'] ?? '';
-$usuario_apellido = $_POST['apellido'] ?? '';
-$usuario_tipo_documento_id = $_POST['tipo_documento_id'] ?? '';
-$usuario_numero_documento = $_POST['numero_documento'] ?? '';
-$usuario_telefono = $_POST['telefono'] ?? '';
-$usuario_email = $_POST['email'] ?? '';
-$usuario_nombre_usuario = $_POST['nombre_usuario'] ?? '';
-$usuario_rol_id = $_POST['rol_id'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST;
+    if (isset($_POST['id']) && $_POST['id'] !== '') {
+        $controller->actualizar($_POST['id'], $data);
+    } else {
+        $controller->crear($data);
+    }
+    header('Location: ../../layoutadmin.php?page=adminusuarios');
+    exit;
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
+<form method="POST">
+    <?php if ($editando): ?>
+        <input type="hidden" name="id" value="<?= htmlspecialchars($_GET['id']) ?>">
+    <?php endif; ?>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Signup</title>
-    <link rel="icon" href="Access/Img/Icono.jpeg" type="image/jpeg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="Access/css/style.css">
-</head>
+    <label>Nombre:</label>
+    <input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>" required><br>
 
-<body class='Contenido-signup'>
-    <div class='container'>
-        <div class="card">
-            <div class="card-header">
-                <h1>Registrarse</h1>
-            </div>
-            <div class="card-body">
-                <form class="signup-form" method="POST" action="procesar_signup.php">
+    <label>Apellido:</label>
+    <input type="text" name="apellido" value="<?= htmlspecialchars($usuario['apellido']) ?>" required><br>
 
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="nombres">Nombres:</label>
-                            <input type="text" id="nombres" name="nombre" value="<?= htmlspecialchars($usuario_nombre) ?>" required class="form-control">
-                        </div>
+    <label>Tipo Documento:</label>
+    <input type="number" name="tipo_documento_id" value="<?= htmlspecialchars($usuario['tipo_documento_id']) ?>" required><br>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="apellidos">Apellidos:</label>
-                            <input type="text" id="apellidos" name="apellido" value="<?= htmlspecialchars($usuario_apellido) ?>" required class="form-control">
-                        </div>
+    <label>Número Documento:</label>
+    <input type="text" name="numero_documento" value="<?= htmlspecialchars($usuario['numero_documento']) ?>" required><br>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="tipoDocumento">Tipo de documento:</label>
-                            <select id="tipoDocumento" name="tipo_documento_id" required class="form-control">
-                                <option value="">Seleccione</option>
-                                <?php foreach ($tiposDocumento as $tipo): ?>
-                                    <option value="<?= $tipo['id'] ?>" <?= ($tipo['id'] == $usuario_tipo_documento_id) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($tipo['nombre']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" value="<?= htmlspecialchars($usuario['telefono']) ?>" required><br>
 
+    <label>Email:</label>
+    <input type="email" name="email" value="<?= htmlspecialchars($usuario['email']) ?>" required><br>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="numeroDocumento">Número de documento:</label>
-                            <input type="text" id="numeroDocumento" name="numero_documento" value="<?= htmlspecialchars($usuario_numero_documento) ?>" required class="form-control">
-                        </div>
+    <label>Nombre de Usuario:</label>
+    <input type="text" name="nombre_usuario" value="<?= htmlspecialchars($usuario['nombre_usuario']) ?>" required><br>
 
+    <?php if (!$editando): ?>
+        <label>Contraseña:</label>
+        <input type="password" name="contraseña" required><br>
+    <?php endif; ?>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="telefono">Teléfono:</label>
-                            <input type="tel" id="telefono" name="telefono" value="<?= htmlspecialchars($usuario_telefono) ?>" required class="form-control">
-                        </div>
+    <label>Rol:</label>
+    <input type="number" name="rol_id" value="<?= htmlspecialchars($usuario['rol_id']) ?>" required><br>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="email">Correo electrónico:</label>
-                            <input type="email" id="email" name="email" value="<?= htmlspecialchars($usuario_email) ?>" required class="form-control">
-                        </div>
+    <button type="submit"><?= $editando ? 'Actualizar' : 'Crear' ?> Usuario</button>
+</form>
 
-                        <div class="mb-3 col-md-6">
-                            <label for="usuarios">Nombre de Usuario:</label>
-                            <input type="text" id="usuarios" name="nombre_usuario" value="<?= htmlspecialchars($usuario_nombre_usuario) ?>" required class="form-control">
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="password">Contraseña:</label>
-                            <input type="password" id="password" name="contraseña" required class="form-control">
-                        </div>
-
-                        <div class="mb-3 col-md-12">
-                            <label for="rol">Rol de Usuario:</label>
-                            <select id="rol" name="rol_id" required class="form-control">
-                                <option value="">Seleccione</option>
-                                <?php foreach ($roles as $rol): ?>
-                                    <option value="<?= $rol['id'] ?>" <?= ($rol['id'] == $usuario_rol_id) ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($rol['nombre']) ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-
-                        <div class="mt-3">
-                            <button type="submit" class="btn btn-primary">Enviar datos</button>
-                        </div>
-                    </div>
-
-
-                </form>
-            </div>
-            <div class="card-footer text-muted">
-                <p id='text-login'>¿Ya tienes cuenta? <a href="login.php">Inicia sesión</a></p>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-</body>
-
-</html>
+<a href="../../Views/Admin/adminusuario.php">Volver a lista</a>

@@ -16,16 +16,17 @@ class UsuariosController {
         return $this->model->getById($id);
     }
 
-    public function crear($data) {
-    $this->model->setData($data);
-    return $this->model->save();
-    }
-
-    public function actualizar($id, $data) {
-        $this->model->setId($id);
+    public function crear($data){
         $this->model->setData($data);
         return $this->model->save();
     }
+
+    public function actualizar($id, $data){
+        $this->model->setId($id);
+        $this->model->setData($data);
+        return $this->model->update();
+    }
+    
 
     public function eliminar($id) {
         return $this->model->delete($id);
@@ -44,4 +45,3 @@ class UsuariosController {
         return $this->model->esAdmin($id);
     }
 }
-
