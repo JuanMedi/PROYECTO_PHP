@@ -7,7 +7,7 @@ $actividades = $ActividadController->getAll();
 <div class= "Actividades">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
         <h2 class="text-azul">Lista de Actividades</h2>
-        <a href ="createEjercicio.php?id=<?= $actividad['id'] ?>" class="btn btn-primary">Crear Actividad</a>
+        <a href ="Components/Formsview/FormActividades.php" class="btn btn-primary">Crear Actividad</a>
     </div>
 
     <div class = "table-responsive">
@@ -26,7 +26,7 @@ $actividades = $ActividadController->getAll();
                     <td><?= htmlspecialchars($actividad['descripcion']) ?></td>
                     <td><?= htmlspecialchars($actividad['tiempo_estimado']) ?> minutos</td>
                     <td>
-                        <a href="editActividad.php?id=<?= $actividad['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="Components/Formsview/FormActividades.php?id=<?= $actividad['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="Components/Delete/deleteActividad.php?id=<?= $actividad['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>

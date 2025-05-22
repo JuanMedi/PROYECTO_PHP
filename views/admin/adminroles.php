@@ -6,7 +6,7 @@ $Roles = $RolController->getAll();
 <div class = "Roles">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
         <h2 class="text-azul">Lista de Roles</h2>
-        <a href ="createEjercicio.php?id=<?= $Rol['id'] ?>" class="btn btn-primary">Crear Rol</a>
+        <a href ="Components/Formsview/FormTipos.php" class="btn btn-primary">Crear Rol</a>
     </div>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -18,7 +18,7 @@ $Roles = $RolController->getAll();
                 <tr>
                     <td><?= htmlspecialchars($Rol['nombre']) ?></td>
                     <td>
-                        <a href="editRol.php?id=<?= $Rol['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                        <a href="Components/Formsview/FormTipos.php?id=<?= $Rol['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                         <a href="Components/Delete/deleteRol.php?id=<?= $Rol['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>

@@ -7,7 +7,7 @@ $Niveles = $NivelController->getAll();
 <div class = "Niveles">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
         <h2 class="text-azul">Lista de Niveles</h2>
-        <a href ="createEjercicio.php?id=<?= $Nivel['id'] ?>" class="btn btn-primary">Crear Nivel</a>
+        <a href ="Components/Formsview/FormNiveles.php" class="btn btn-primary">Crear Nivel</a>
     </div>
 
     <div class = "table-responsive">
@@ -20,7 +20,7 @@ $Niveles = $NivelController->getAll();
             <tr>
                 <td><?= htmlspecialchars($Nivel['nombre']) ?></td>
                 <td>
-                    <a href="editNivel.php?id=<?= $Nivel['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
+                    <a href="Components/Formsview/FormNiveles.php?id=<?= $Nivel['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                     <a href="Components/Delete/deleteNivel.php?id=<?= $Nivel['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                 </td>
             </tr>
