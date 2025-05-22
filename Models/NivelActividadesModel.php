@@ -2,61 +2,58 @@
 require_once __DIR__ . '/../config/db.php';
 
 class NivelActividadesModel {
+    private $db;
     private $id;
     private $nombre;
-    private $db;
 
     public function __construct() {
         $this->db = Database::connect();
     }
 
-    // Getters y setters para id y nombre
-    public function getId() {
-        return $this->id;
-    }
     public function setId($id) {
         $this->id = (int)$id;
     }
 
-    public function getNombre() {
-        return $this->nombre;
-    }
-    public function setNombre($nombre) {
-        $this->nombre = $this->db->real_escape_string($nombre);
+    public function setData($data) {
+        $this->nombre = $this->db->real_escape_string($data['nombre']);
     }
 
-    // Obtener todos los niveles
     public function getAll() {
         $sql = "SELECT * FROM Nivel_Actividades";
-        $resultado = $this->db->query($sql);
-        return $resultado->fetch_all(MYSQLI_ASSOC);
+        return $this->db->query($sql)->fetch_all(MYSQLI_ASSOC);
     }
 
-    // Insertar nuevo nivel
-    public function guardar() {
-        $sql = "INSERT INTO Nivel_Actividades (nombre) VALUES ('{$this->nombre}')";
-        return $this->db->query($sql);
-    }
-
-    // Consultar nivel por ID
     public function getById($id) {
         $id = (int)$id;
         $sql = "SELECT * FROM Nivel_Actividades WHERE id = $id LIMIT 1";
-        $resultado = $this->db->query($sql);
-        return $resultado->fetch_assoc();
+        return $this->db->query($sql)->fetch_assoc();
     }
 
-    // Actualizar nivel
-    public function actualizar() {
-        $id = (int)$this->id;
-        $sql = "UPDATE Nivel_Actividades SET nombre = '{$this->nombre}' WHERE id = $id";
-        return $this->db->query($sql);
+    public function save() {
+        if (isset($this->id)) {
+            // Actualizar
+            $sql = "UPDATE Nivel_Actividades SET nombre = ? WHERE id = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("si", $this->nombre, $this->id);
+        } else {
+            // Insertar
+            $sql = "INSERT INTO Nivel_Actividades (nombre) VALUES (?)";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("s", $this->nombre);
+        }
+
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
     }
 
-    // Borrar nivel
-    public function borrar($id) {
+    public function delete($id) {
         $id = (int)$id;
-        $sql = "DELETE FROM Nivel_Actividades WHERE id = $id";
-        return $this->db->query($sql);
+        $sql = "DELETE FROM Nivel_Actividades WHERE id = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
     }
 }

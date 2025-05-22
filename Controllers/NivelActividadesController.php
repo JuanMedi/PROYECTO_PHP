@@ -1,44 +1,38 @@
 <?php
 require_once __DIR__ . '/../Models/NivelActividadesModel.php';
 
-class NivelActividadesController
-{
+class NivelActividadesController {
     private $model;
-    
-    public function __construct()
-    {
+
+    public function __construct() {
         $this->model = new NivelActividadesModel();
     }
 
-    public function getAll()
-    {
+    // Obtener todos los niveles
+    public function getAll() {
         return $this->model->getAll();
     }
 
-    // Guardar un nuevo nivel
-    public function guardarNivel($nombre)
-    {
-        $this->model->setNombre($nombre);
-        $guardado = $this->model->guardar();
-        echo $guardado ? "guardado=1" : "guardado=0";
+    // Obtener un nivel por ID (si tu modelo lo permite, implementa getById)
+    public function getById($id) {
+        return $this->model->getById($id);
     }
 
-    // Controlar la petición entrante (POST, GET, etc.)
-    public function handleRequest()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
+    // Crear nuevo nivel
+    public function crear($data) {
+        $this->model->setData($data);
+        return $this->model->save();
+    }
 
-            if ($nombre) {
-                $this->guardarNivel($nombre);
-            } else {
-                echo "guardado=0";
-            }
-        }
+    // Actualizar un nivel existente
+    public function actualizar($id, $data) {
+        $this->model->setId($id);
+        $this->model->setData($data);
+        return $this->model->save();
+    }
 
-        // Podrías agregar GET aquí si quieres manejar listar por GET
-        // if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        //     $this->listarNiveles();
-        // }
+    // Eliminar un nivel
+    public function eliminar($id) {
+        return $this->model->delete($id);
     }
 }

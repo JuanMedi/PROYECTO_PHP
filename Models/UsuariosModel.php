@@ -31,7 +31,7 @@ class UsuariosModel{
         $this->email = $this->db->real_escape_string($data['email']);
         $this->nombre_usuario = $this->db->real_escape_string($data['nombre_usuario']);
         $this->contraseña = $this->db->real_escape_string($data['contraseña']);
-        $this->rol_id = (int)$data['rol_nombre'];
+        $this->rol_id = (int)$data['rol_id'];
     }
 
     public function userExists($email, $contraseña) {
@@ -117,7 +117,6 @@ class UsuariosModel{
         return null;
     }
     }     
-
 
     public function delete($id) {
         $id = (int)$id;

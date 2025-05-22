@@ -4,7 +4,7 @@ $UsuarioController = new UsuariosController();
 $Usuarios = $UsuarioController->getAll();
 ?>
 
-<div class="Ejercicios">
+<div class="Usuarios">
 
     <div class="d-flex align-items-center" style="justify-content: space-between;">
         <h2 class="text-azul"> <?php $Usuarioscount ?> Lista de Usuarios</h2>
@@ -35,7 +35,7 @@ $Usuarios = $UsuarioController->getAll();
                     <td><?= htmlspecialchars($Usuario['rol_id']) ?> </td>
                     <td>
                         <a href="editUsuario.php?id=<?= $Usuario['id'] ?>" class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
-                        <a href="deleteUsuario.php?id=<?= $Usuario['id'] ?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
+                        <a href="Components/Delete/deleteUsuario.php?id=<?=$Usuario['id']?>" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
