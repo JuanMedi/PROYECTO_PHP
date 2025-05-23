@@ -6,7 +6,7 @@ $Niveles = $NivelController->getAll();
 
 <div class = "Niveles">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
-        <h2 class="text-azul">Lista de Niveles(<?= count($Niveles) ?>)</h2>
+        <h2 class="text-azul">Lista de Niveles (<?= count($Niveles) ?>)</h2>
         <a href ="/PROYECTO_PHP/layoutadmin.php?page=FormNiveles" class="btn btn-primary">Crear Nivel</a>
     </div>
 

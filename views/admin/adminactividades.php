@@ -6,7 +6,7 @@ $actividades = $ActividadController->getAll();
 
 <div class= "Actividades">
     <div class="d-flex align-items-center" style="justify-content: space-between;">
-        <h2 class="text-azul">Lista de Actividades(<?= count($actividades) ?>)</h2>
+        <h2 class="text-azul">Lista de Actividades (<?= count($actividades) ?>)</h2>
         <a href ="/PROYECTO_PHP/layoutadmin.php?page=FormActividades" class="btn btn-primary">Crear Actividad</a>
     </div>
 

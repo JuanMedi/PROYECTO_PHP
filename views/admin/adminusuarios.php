@@ -37,8 +37,6 @@ $Usuarios = $UsuarioController->getAll();
                         <a href="/PROYECTO_PHP/layoutadmin.php?page=FormUsuarios&id=<?= $Usuario['id'] ?>" class="btn btn-warning">
                             <i class="fa-regular fa-pen-to-square"></i>
                         </a>
-
-                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
